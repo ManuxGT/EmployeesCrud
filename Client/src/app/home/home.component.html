@@ -1,0 +1,69 @@
+<div class="toolbar" role="banner">
+  <span>Bahn Software Test</span>
+</div>
+
+<div class="content" role="main">
+  <h2>Students CRUD</h2>
+
+  <div class="card-container">
+    <div class="button-container">
+      <h4>Students</h4>
+      <div>
+        <button mat-raised-button (click)="onRefresh()"><i class="fa fa-refresh" aria-hidden="true"></i>Refresh</button>
+        <button mat-raised-button (click)="onCreateStudent()"><i class="fa fa-user-plus" aria-hidden="true"></i>Create</button>
+      </div>
+
+    </div>
+
+    <table class="full-width" mat-table [dataSource]="(allStudents$ | async) || []">
+      <!-- Id Column -->
+      <ng-container matColumnDef="id">
+        <th class="long" mat-header-cell *matHeaderCellDef>Id</th>
+        <td class="long" mat-cell *matCellDef="let element">
+          {{ element.id }}
+        </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th class="short" mat-header-cell *matHeaderCellDef>Name</th>
+        <td class="short" mat-cell *matCellDef="let element">
+          {{ element.name }}
+        </td>
+      </ng-container>
+
+      <!-- Lastname Column -->
+      <ng-container matColumnDef="lastname">
+        <th class="short" mat-header-cell *matHeaderCellDef>Lastname</th>
+        <td class="short" mat-cell *matCellDef="let element">
+          {{ element.lastname }}
+        </td>
+      </ng-container>
+
+      <!-- Email Column -->
+      <ng-container matColumnDef="email">
+        <th class="long" mat-header-cell *matHeaderCellDef>Email</th>
+        <td class="long" mat-cell *matCellDef="let element">
+          {{ element.email }}
+        </td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let row">
+          <button mat-button [matMenuTriggerFor]="menu" #menuTrigger>
+            • • •
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="onEditStudent(row)">Edit</button>
+            <button mat-menu-item (click)="onDeleteStudent(row)">Delete</button>
+          </mat-menu>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+</div>

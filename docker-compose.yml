@@ -1,0 +1,29 @@
+version: '3.4'
+
+services:
+  crudwebapi:
+    image: ${DOCKER_REGISTRY-}crudwebapi
+    ports:
+      - "52392:443"
+    build:
+      context: .
+      dockerfile: CrudWebApi/Dockerfile
+    depends_on:
+          - db
+
+  db:
+    image: "mcr.microsoft.com/mssql/server:2022-latest"
+    ports:
+      - "1433:1433"
+    
+    environment:
+        SA_PASSWORD: "S3cur3P@ssW0rd!"
+        ACCEPT_EULA: "Y"
+
+  frontend: 
+    image: angular
+    build:
+     context: Client
+     dockerfile: ./Dockerfile
+    ports: 
+      - 4200:4200

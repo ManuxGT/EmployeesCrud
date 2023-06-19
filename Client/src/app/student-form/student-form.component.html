@@ -1,0 +1,63 @@
+<div>
+  <h3>{{ title }}</h3>
+</div>
+
+<form [formGroup]="formGroup">
+  <div>
+    <mat-form-field class="full-width short-margin-bottom" appearance="fill">
+      <mat-label>Name</mat-label>
+      <input formControlName="name" matInput />
+      <mat-error *ngIf="formGroup.controls.name.errors?.required">This field is required</mat-error>
+      <mat-error *ngIf="formGroup.controls.name.errors?.minlength">This field have to contain at least 2 characters </mat-error>
+      <mat-error *ngIf="formGroup.controls.name.errors?.maxlength">Max 20 characters allowed</mat-error>
+      <mat-error *ngIf="formGroup.controls.name.errors?.pattern">Special characters and numbers are not allowed</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field class="full-width short-margin-bottom" appearance="fill">
+      <mat-label>Lastname</mat-label>
+      <input formControlName="lastname" matInput />
+      <mat-error *ngIf="formGroup.controls.lastname.errors?.required">This field is required</mat-error>
+      <mat-error *ngIf="formGroup.controls.lastname.errors?.minlength">This field have to contain at least 2 characters </mat-error>
+      <mat-error *ngIf="formGroup.controls.lastname.errors?.maxlength">Max 20 characters allowed</mat-error>
+      <mat-error *ngIf="formGroup.controls.lastname.errors?.pattern">Special characters and numbers are not allowed</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field class="full-width short-margin-bottom" appearance="fill">
+      <mat-label>Age</mat-label>
+      <input [max]="100" type="number" formControlName="age" matInput />
+      <mat-error *ngIf="formGroup.controls.age.errors?.required">This field is required</mat-error>
+      <mat-error *ngIf="formGroup.controls.age.errors?.min">The student have to be adult</mat-error>
+      <mat-error *ngIf="formGroup.controls.age.errors?.max">This age is not valid</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field class="full-width short-margin-bottom" appearance="fill">
+      <mat-label>Email</mat-label>
+      <input type="email" formControlName="email" matInput />
+      <mat-error *ngIf="formGroup.controls.email.errors?.required">This field is required</mat-error>
+      <mat-error *ngIf="formGroup.controls.email.errors?.minlength">This field have to contain at least 5 characters </mat-error>
+      <mat-error *ngIf="formGroup.controls.email.errors?.maxlength">Max 50 characters allowed</mat-error>
+      <mat-error *ngIf="formGroup.controls.email.errors?.pattern">This email is not valid</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field class="full-width short-margin-bottom" appearance="fill">
+      <mat-label>Phone Number</mat-label>
+      <input mask="(000) 000-0000" [validation]="false" formControlName="phoneNumber" matInput />
+      <mat-error *ngIf="formGroup.controls.phoneNumber.errors?.required">This field is required</mat-error>
+      <mat-error *ngIf="formGroup.controls.phoneNumber.errors?.minlength">This field have to contain at least 4 characters </mat-error>
+      <mat-error *ngIf="formGroup.controls.phoneNumber.errors?.pattern">Only numbers allowed</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="button-container">
+    <button mat-flat-button color="basic" [mat-dialog-close]="true">Cancel</button>
+    <button mat-flat-button color="primary" (click)="onSubmit()" [disabled]="formGroup.invalid || disableButton">Save</button>
+  </div>
+</form>
