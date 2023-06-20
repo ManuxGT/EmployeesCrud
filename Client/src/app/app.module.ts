@@ -11,7 +11,7 @@ import { MatButtonModule } from '@angular/material/button'
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from "@angular/material/form-field";
-import { StudentFormComponent } from './student-form/student-form.component'
+import { EmployeeFormComponent } from './employee-form/employee-form.component'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxMaskModule } from 'ngx-mask';
 import { ConfirmDeleteModalContentComponent } from './confirm-delete-modal-content/confirm-delete-modal-content.component'
@@ -20,7 +20,7 @@ import { ConfirmDeleteModalContentComponent } from './confirm-delete-modal-conte
   declarations: [
     AppComponent,
     HomeComponent,
-    StudentFormComponent,
+    EmployeeFormComponent,
     ConfirmDeleteModalContentComponent
   ],
   imports: [

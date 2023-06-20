@@ -1,21 +1,21 @@
 <div class="toolbar" role="banner">
-  <span>Bahn Software Test</span>
+  <span>Employees Crud Application</span>
 </div>
 
 <div class="content" role="main">
-  <h2>Students CRUD</h2>
+  <h2>Employees CRUD</h2>
 
   <div class="card-container">
     <div class="button-container">
-      <h4>Students</h4>
+      <h4>Employees</h4>
       <div>
         <button mat-raised-button (click)="onRefresh()"><i class="fa fa-refresh" aria-hidden="true"></i>Refresh</button>
-        <button mat-raised-button (click)="onCreateStudent()"><i class="fa fa-user-plus" aria-hidden="true"></i>Create</button>
+        <button mat-raised-button (click)="onCreateEmployee()"><i class="fa fa-user-plus" aria-hidden="true"></i>Create</button>
       </div>
 
     </div>
 
-    <table class="full-width" mat-table [dataSource]="(allStudents$ | async) || []">
+    <table class="full-width" mat-table [dataSource]="(allEmployees$ | async) || []">
       <!-- Id Column -->
       <ng-container matColumnDef="id">
         <th class="long" mat-header-cell *matHeaderCellDef>Id</th>
@@ -56,8 +56,8 @@
             • • •
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="onEditStudent(row)">Edit</button>
-            <button mat-menu-item (click)="onDeleteStudent(row)">Delete</button>
+            <button mat-menu-item (click)="onEditEmployee(row)">Edit</button>
+            <button mat-menu-item (click)="onDeleteEmployee(row)">Delete</button>
           </mat-menu>
         </td>
       </ng-container>

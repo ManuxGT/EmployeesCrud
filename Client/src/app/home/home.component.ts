@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { StudentService } from '../services/student.service';
-import { Student } from '../models/student.model';
+import { EmployeeService } from '../services/employee.service';
+import { Employee } from '../models/employee.model';
 import { tap } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
-import { StudentFormComponent } from '../student-form/student-form.component';
+import { EmployeeFormComponent } from '../employee-form/employee-form.component';
 import { BehaviorSubject } from 'rxjs';
 import { ConfirmDeleteModalContentComponent } from '../confirm-delete-modal-content/confirm-delete-modal-content.component';
 import { ModalService } from '../services/modal.service';
@@ -15,7 +15,8 @@ import { ModalService } from '../services/modal.service';
 })
 export class HomeComponent implements OnInit {
   public title: string = '';
-  public allStudents$: BehaviorSubject<Array<Student>> = new BehaviorSubject<Array<Student>>([]);
+  public currentPage: number = 1;
+  public allEmployees$: BehaviorSubject<Array<Employee>> = new BehaviorSubject<Array<Employee>>([]);
   public readonly displayedColumns: string[] = [
     'id',
     'name',
@@ -25,7 +26,7 @@ export class HomeComponent implements OnInit {
   ];
 
   constructor(
-    private readonly _studentService: StudentService,
+    private readonly _employeeService: EmployeeService,
     private readonly _dialog: MatDialog,
     private readonly _modalService: ModalService
   ) {}
@@ -35,13 +36,13 @@ export class HomeComponent implements OnInit {
   }
 
   private _bootstrap() {
-    return this._studentService.getAll().pipe(
+    return this._employeeService.getAll(this.currentPage).pipe(
       tap({
-        next: (students: Student[]) => {
-          this.allStudents$.next(students);
+        next: (employees: Employee[]) => {
+          this.allEmployees$.next(employees);
         },
         error: () => {
-          this._modalService.createErrorModal('Error getting all students');
+          this._modalService.createErrorModal('Error getting all employees');
         },
       })
     );
@@ -51,8 +52,8 @@ export class HomeComponent implements OnInit {
     this._bootstrap().subscribe();
   }
 
-  public onCreateStudent(): void {
-    const modalRef = this._dialog.open(StudentFormComponent, {
+  public onCreateEmployee(): void {
+    const modalRef = this._dialog.open(EmployeeFormComponent, {
       width: '560px',
       disableClose: true,
     });
@@ -62,32 +63,32 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  public onDeleteStudent(student: Student): void {
+  public onDeleteEmployee(employee: Employee): void {
     const modalRef = this._dialog.open(ConfirmDeleteModalContentComponent, {
       width: '350px',
     });
 
     modalRef.afterClosed().subscribe((result: boolean) => {
       if (result) {
-        this._performDelete(student.id);
+        this._performDelete(employee.id);
       }
     });
   }
 
-  private _performDelete(studentId: string): void {
-    this._studentService
-      .delete(studentId)
+  private _performDelete(employeeId: string): void {
+    this._employeeService
+      .delete(employeeId)
       .pipe(
         tap({
           next: () => {
             this._modalService.createSuccessModal(
-              'Student deleted successfully'
+              'Employee deleted successfully'
             );
             this.onRefresh();
           },
           error: () => {
             this._modalService.createErrorModal(
-              'Error while deleting this student'
+              'Error while deleting this employee'
             );
           },
         })
@@ -95,9 +96,9 @@ export class HomeComponent implements OnInit {
       .subscribe();
   }
 
-  public onEditStudent(student: Student): void {
-    const modalRef = this._dialog.open(StudentFormComponent, {
-      data: student,
+  public onEditEmployee(employee: Employee): void {
+    const modalRef = this._dialog.open(EmployeeFormComponent, {
+      data: employee,
       width: '560px',
       disableClose: true,
     });

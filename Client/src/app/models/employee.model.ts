@@ -1,15 +1,19 @@
+import { EmployeeStatus } from "../enums/employee-status.enum";
+import { PersonalInformation } from "./personal-information.model";
 import { FieldValidation } from "./validation.model";
 
-export interface Student {
+export interface Employee {
   id: string;
-  name: string;
-  lastname: string;
-  age: number;
-  email: string;
-  phoneNumber: string;
+  name: string; //
+  lastname: string; //
+  photoBase64: string;
+  position: string; //
+  hiredDate: Date; //
+  status: EmployeeStatus
+  personalInformation: PersonalInformation;
 }
 
-export  class StudentValidations {
+export  class EmployeeValidations {
   public static nameValidation: FieldValidation = {
     minLength: 2,
     maxLength: 20,
@@ -20,11 +24,6 @@ export  class StudentValidations {
     minLength: 2,
     maxLength: 20,
     regex: /^[a-z ,.'-]+$/i
-  };
-
-  public static age: FieldValidation = {
-    minLength: 18,
-    maxLength: 100
   };
 
   public static email: FieldValidation = {
